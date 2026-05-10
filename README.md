@@ -360,6 +360,25 @@ scipy>=1.9.0
 missingno>=0.5.1
 ```
 
+## 👥 Autores
+
+**Grupo 4 — Machine Learning**
+Universidad de Especialidades Espíritu Santo (UEES)
+
+| # | Nombre |
+|---|--------|
+| 1 | Eduardo Alejandro Ceballos Jijón |
+| 2 | Guillermo Leónidas Granizo Veintimilla |
+| 3 | José Farid Ulloa Manzur |
+| 4 | Christian Xavier Valle Maridueña |
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+
 ---
 
 ## 📚 Referencias
