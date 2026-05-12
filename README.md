@@ -1,4 +1,4 @@
-# 🔥 Developer Burnout Profiling — Unsupervised Learning
+# 🔥 Developer Burnout Profiling — Aprendizaje NO Supervisado
 
 > **Universidad UEES · Machine Learning · Grupo 4 · Semana 3**
 
