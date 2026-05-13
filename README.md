@@ -33,7 +33,7 @@ El objetivo es descubrir **perfiles latentes** a partir de las *causas* del burn
     ├── Home.md                                 ← Índice y guía de navegación
     ├── 01_Dataset.md                           ← Fuente, variables, naturaleza sintética
     ├── 02_Seleccion_Variables_Leakage.md       ← Exclusiones y análisis de leakage
-    ├── 03_Feature_Engineering.md              ← Features construidas y espacio final
+    ├── 03_Feature_Engineering.md               ← Features construidas y espacio final
     ├── 04_Preprocesamiento.md                  ← Split, imputación, escalado adaptativo
     ├── 05_KMeans_Seleccion_k.md                ← 4 métricas, ranking combinado, k=2
     ├── 06_KMeans_Perfiles.md                   ← Centroides, etiquetas, validación Chi²
