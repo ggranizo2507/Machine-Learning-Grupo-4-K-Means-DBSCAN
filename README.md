@@ -228,5 +228,7 @@ Universidad UEES
 
 ## 📄 Licencia
 Este proyecto está bajo la licencia **MIT**. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
 Dataset original: Kaggle (uso académico).
+
 Código del notebook: uso académico — Grupo 4, UEES.
