@@ -1,17 +1,12 @@
+# 🔥 Clasificación de Perfiles de Burnout en Desarrolladores
+## Aprendizaje No Supervisado | K-Means · DBSCAN · Detección de Anomalías
+
 <div align="center">
 
-# 🔥 Clasificación de Perfiles de Burnout en Desarrolladores
-### Aprendizaje No Supervisado · K-Means · DBSCAN · Isolation Forest · LOF
-
----
-
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white)](https://jupyter.org)
-[![Google Colab](https://img.shields.io/badge/Google-Colab-F9AB00?style=flat-square&logo=googlecolab&logoColor=black)](https://colab.research.google.com)
-[![Plotly](https://img.shields.io/badge/Plotly-Interactive-3F4F75?style=flat-square&logo=plotly&logoColor=white)](https://plotly.com)
-
-**Universidad de Especialidades Espíritu Santo (UEES) — Grupo 4**
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?style=for-the-badge&logo=pandas&logoColor=white)
 
 </div>
 
@@ -19,299 +14,209 @@
 
 ## 🎯 Pregunta central del proyecto
 
-> **"Queremos descubrir perfiles de burnout de desarrolladores sin decirle al modelo quién tiene burnout alto, medio o bajo."**
+> **"Queremos descubrir perfiles de burnout de desarrolladores *sin* decirle al modelo quién tiene burnout alto, medio o bajo."**
 
-El objetivo es revelar **perfiles latentes** a partir de las *causas* del burnout — horas de trabajo, carga operativa, calidad del sueño, recuperación física — **sin usar la etiqueta resultante**. La variable `burnout_level` se consulta únicamente al final como validación externa posterior; nunca durante el entrenamiento.
+El objetivo es descubrir **perfiles latentes** a partir de las *causas* del burnout —horas de trabajo, carga operativa, calidad del sueño, hábitos de recuperación— y **no** de la etiqueta resultado (`burnout_level`). El modelo aprende patrones de comportamiento; la etiqueta se usa solo al final como validación externa.
 
 ---
 
 ## 📁 Estructura del repositorio
 
 ```
-📦 burnout-developer-clustering
- ┣ 📓 KMeans_DBSCAN_anomalias_Grupo_4_1205_FINAL.ipynb
- ┣ 📊 developer_burnout_dataset.csv
- ┣ 📄 README.md
- ┗ 📚 wiki/
-    ┣ 🏠 Home.md
-    ┣ 01_Dataset_y_Variables.md
-    ┣ 02_EDA_Analisis_Exploratorio.md
-    ┣ 03_Seleccion_Variables_Feature_Engineering.md
-    ┣ 04_Preprocesamiento.md
-    ┣ 05_KMeans_Seleccion_k_y_Entrenamiento.md
-    ┣ 06_DBSCAN_Clustering_por_Densidad.md
-    ┣ 07_Reduccion_Dimensional_PCA_tSNE.md
-    ┣ 08_Deteccion_Anomalias_IF_LOF.md
-    ┣ 09_Perfiles_Identificados_y_Resultados.md
-    ┗ 10_Limitaciones_y_Recomendaciones.md
+📦 burnout-clustering/
+│
+├── 📓 KMeans_DBSCAN_anomalias_Grupo_4.ipynb   ← Notebook principal (11 pasos)
+├── 📊 developer_burnout_dataset.csv            ← Dataset (7,000 registros · 12 variables)
+├── 📄 README.md                                ← Este archivo
+│
+└── 📚 wiki/
+    ├── Home.md                                 ← Índice y guía de navegación
+    ├── 01_Dataset.md                           ← Fuente, variables, naturaleza sintética
+    ├── 02_Seleccion_Variables_Leakage.md       ← Exclusiones y análisis de leakage
+    ├── 03_Feature_Engineering.md              ← Features construidas y espacio final
+    ├── 04_Preprocesamiento.md                  ← Split, imputación, escalado adaptativo
+    ├── 05_KMeans_Seleccion_k.md                ← 4 métricas, ranking combinado, k=2
+    ├── 06_KMeans_Perfiles.md                   ← Centroides, etiquetas, validación Chi²
+    ├── 07_DBSCAN.md                            ← Clustering por densidad, maldición dim.
+    ├── 08_Reduccion_Dimensional.md             ← PCA vs t-SNE, loadings, fidelidad
+    ├── 09_Deteccion_Anomalias.md               ← IF + LOF, consenso, cruce con DBSCAN
+    └── 10_Conclusiones.md                      ← Perfiles, comparativa, limitaciones
 ```
 
 ---
 
-## 📊 Sobre el dataset
+## 🗂️ Dataset
 
-| Atributo | Detalle |
-|----------|---------|
-| **Fuente** | [Developer Burnout Prediction Dataset — Kaggle](https://www.kaggle.com/datasets/asifxzaman/developer-burnout-prediction-dataset7000-samples) |
-| **Registros** | 7,000 desarrolladores |
-| **Variables** | 12 (11 numéricas + 1 categórica target) |
-| **Valores faltantes** | ~140 NaN por columna (~2%, patrón MCAR uniforme) |
-| **Target** | `burnout_level`: Low / Medium / High — **NO entra al modelo** |
-| **Naturaleza** | Sintético (skewness ≈ 0, cero outliers IQR, NaN uniformes) |
-
-### Variables
+**Fuente:** [Developer Burnout Prediction Dataset — Kaggle](https://www.kaggle.com/datasets/asifxzaman/developer-burnout-prediction-dataset7000-samples)
+**Registros:** 7,000 · **Variables:** 12 · **NaN:** ~2% por columna (patrón MCAR)
 
 | Variable | Tipo | Descripción |
-|----------|------|-------------|
-| `age` | Numérica | Edad del desarrollador (años) |
-| `experience_years` | Numérica | Años de experiencia total |
-| `daily_work_hours` | Numérica | Promedio horas de trabajo/día |
-| `sleep_hours` | Numérica | Promedio horas de sueño/día |
-| `caffeine_intake` | Numérica discreta | Bebidas con cafeína por día |
-| `bugs_per_day` | Numérica discreta | Bugs producidos diariamente |
-| `commits_per_day` | Numérica discreta | Commits realizados por día |
-| `meetings_per_day` | Numérica discreta | Reuniones atendidas por día |
-| `screen_time` | Numérica | Tiempo frente a pantalla (h/día) |
-| `exercise_hours` | Numérica | Horas de ejercicio físico/día |
-| `stress_level` | Numérica | Puntuación de estrés (0–100) |
-| `burnout_level` | Categórica | **TARGET** — Low / Medium / High |
+|---|---|---|
+| `age` | Continua | Edad del desarrollador (años) |
+| `experience_years` | Continua | Años de experiencia en programación |
+| `daily_work_hours` | Continua | Horas promedio de trabajo por día |
+| `sleep_hours` | Continua | Horas promedio de sueño diario |
+| `caffeine_intake` | Discreta | Bebidas con cafeína consumidas al día |
+| `bugs_per_day` | Discreta | Bugs producidos diariamente |
+| `commits_per_day` | Discreta | Commits de código por día |
+| `meetings_per_day` | Discreta | Reuniones diarias |
+| `screen_time` | Continua | Tiempo total frente a pantalla (horas/día) |
+| `exercise_hours` | Continua | Tiempo de ejercicio físico diario (horas) |
+| `stress_level` | Continua | Puntuación de estrés calculada (0–100) |
+| `burnout_level` | Categórica | **TARGET:** Low / Medium / High *(excluida del modelo)* |
+
+> ⚠️ El dataset presenta señales claras de ser sintético: skewness ≈ 0 en todas las variables, cero outliers IQR y NaN distribuidos uniformemente al 2% por columna. Esto no invalida el análisis metodológico pero implica que las fronteras de cluster son más difusas que en datos reales de campo.
 
 ---
 
-## 🏗️ Arquitectura del análisis — 15 Pasos
+## 🔬 Pipeline del análisis (11 pasos)
 
 ```
-PASOS 1–2  │ Importación de librerías · Carga del dataset
-───────────┼──────────────────────────────────────────────────────────────
-PASO  3    │ EDA completo (3A→3H)
-           │  3A · Info general y estadísticas descriptivas
-           │  3B · Diagnóstico de NaN + visualización missingno
-           │  3C · Distribuciones de variables numéricas
-           │  3D · Diagnóstico: ¿real o sintético?
-           │  3E · Distribución del target + boxplots discriminatorios
-           │  3F · Heatmap correlaciones Pearson (dataset completo)
-           │  3G · Diagnóstico específico commits_per_day
-           │  3H · Correlación Spearman vs Pearson
-───────────┼──────────────────────────────────────────────────────────────
-PASO  4    │ Selección de variables + Feature Engineering (4A→4C)
-           │  4A · Resumen exclusiones del EDA
-           │  4B · Construcción de 3 features compuestas
-           │  4C · Correlación del espacio final del modelo
-───────────┼──────────────────────────────────────────────────────────────
-PASO  5    │ Preprocesamiento con split correcto (5A→5D)
-           │  5A · Split train/val + ColumnTransformer + imputación
-           │  5B · Diagnóstico automático de Scaler (Shapiro-Wilk)
-           │  5C · Escalado adaptativo (StandardScaler elegido)
-           │  5D · Verificación visual antes/después del escalado
-───────────┼──────────────────────────────────────────────────────────────
-PASO  6    │ Selección k óptimo (rango 2–12, 4 métricas)
-           │  6A · Evaluación Inercia, Silhouette, DB, Calinski-H
-           │  6B · Panel visual de 4 métricas + ranking combinado
-           │  6C · Selección automática: k = 2
-───────────┼──────────────────────────────────────────────────────────────
-PASO  7    │ Entrenamiento K-Means final (7A→7B)
-PASO  8    │ Validación externa con burnout_level (referencia)
-PASO  9    │ DBSCAN: K-Distance Graph, eps, min_samples, resultado
-───────────┼──────────────────────────────────────────────────────────────
-PASO 10    │ Reducción dimensional (10.1→10.11)
-           │  PCA: varianza, loadings, scatter, comparativa PCA vs train
-           │  t-SNE: proyección, comparativa fidelidad, panel visual
-───────────┼──────────────────────────────────────────────────────────────
-PASO 11    │ Detección de anomalías (11.1→11.4)
-           │  11.1  · Isolation Forest
-           │  11.2  · LOF — Local Outlier Factor
-           │  11.2B · Cruce DBSCAN ruido vs IF/LOF
-           │  11.3  · Análisis grupos de anomalías
-           │  11.4  · Panel visual LOF completo
-───────────┼──────────────────────────────────────────────────────────────
-PASOS 12–15│ Panel resumen · Conclusiones · Perfiles · Limitaciones
+RAW DATA (7,000 × 12 variables)
+    │
+    ▼
+ PASO 3 — EDA
+    Distribuciones · Correlaciones Pearson/Spearman
+    Diagnóstico sintético · Poder discriminatorio visual
+    │
+    ▼
+ PASO 4 — SELECCIÓN + FEATURE ENGINEERING
+    Exclusión de burnout_level (TARGET)
+    Exclusión de stress_level  (leakage 99.99%)
+    Exclusión de redundantes y sin poder discriminatorio
+    Construcción de 3 features compuestas
+    │
+    ▼  [4 variables limpias]
+ PASO 5 — PREPROCESAMIENTO
+    Split 80/20 · Imputación mediana · StandardScaler adaptativo
+    │
+    ├──────────────────────────┐
+    ▼                          ▼
+ PASO 6-8                   PASO 9
+ K-MEANS                    DBSCAN
+ k=2 óptimo                 eps por K-Distance Graph
+ 2 perfiles                 1 bloque denso + ~5% ruido
+    │
+    ▼
+ PASO 10 — REDUCCIÓN DIMENSIONAL
+    PCA (~35% varianza) · t-SNE (vecindad local) · Comparativa
+    │
+    ▼
+ PASO 11 — DETECCIÓN DE ANOMALÍAS
+    Isolation Forest + LOF · Consenso · Cruce con DBSCAN ruido
+    │
+    ▼
+ PASO 12-15 — RESUMEN + CONCLUSIONES
+    Panel visual · Tabla comparativa · Interpretación de negocio
 ```
 
 ---
 
-## ⚙️ Decisiones metodológicas clave
+## ⚙️ Espacio final del modelo (4 variables)
 
-### Variables excluidas del modelo y sus razones
+Después del análisis de leakage, redundancias y feature engineering, el modelo opera con:
 
-| Variable | Razón | Evidencia cuantitativa |
-|----------|-------|------------------------|
-| `burnout_level` | **TARGET** — leakage directo | — |
-| `stress_level` | Codificación determinista del target | 99.99% precisión con regla de 3 umbrales; r = 0.91 con burnout |
-| `screen_time` | Redundante con `daily_work_hours` | r = 0.93 |
-| `age` | Sin poder discriminatorio | r < 0.02 con todas las demás |
-| `experience_years` | Sin poder discriminatorio | r < 0.02 con todas las demás |
-| `commits_per_day` | Sin correlación con burnout | r = −0.01; % burnout alto idéntico en Q1, Q2, Q3 y Q4 |
-
-### Espacio final del modelo — 4 variables limpias
-
-| Variable | Tipo | Fórmula | Qué captura |
-|----------|------|---------|-------------|
-| `caffeine_intake` | 📌 Original | Variable directa | Compensación energética artificial |
+| Variable | Origen | Fórmula | Qué captura |
+|---|---|---|---|
+| `caffeine_intake` | 📌 Original retenida | — | Compensación energética |
 | `ratio_trabajo_descanso` | 🆕 Construida | `daily_work_hours / sleep_hours` | Desequilibrio vida-trabajo |
-| `carga_operativa` | 🆕 Construida | `bugs_per_day + meetings_per_day` | Presión técnica y social |
+| `carga_operativa` | 🆕 Construida | `bugs_per_day + meetings_per_day` | Presión técnica + social |
 | `indice_recuperacion` | 🆕 Construida | `sleep_hours + exercise_hours` | Capacidad de recuperación física |
 
-**Verificación anti-leakage:** R² features nuevas → `burnout_level` ≈ 0.45 (muy por debajo del umbral de `stress_level`: R² = 0.83).
+### Variables excluidas y su razón
 
-**Impacto medido del feature engineering (k=2):**
-
-| Espacio | Silhouette | Davies-Bouldin | Calinski-H |
-|---------|-----------|----------------|------------|
-| 7 variables con doble conteo | 0.147 | 2.250 | 1,032 |
-| **4 variables sin doble conteo (final)** | **0.252** | **1.541** | **2,131** |
-
----
-
-## 📈 Resultados
-
-### K-Means — Métricas obtenidas
-
-| Métrica | Valor |
-|---------|-------|
-| **k óptimo** | **2** (ranking combinado de 4 métricas) |
-| **Silhouette train** | ~0.252 |
-| **Silhouette val** | Diferencia < 0.05 ✅ (no sobreajustado) |
-| **Davies-Bouldin** | ~1.541 (menor = mejor) |
-| **Calinski-Harabasz** | ~2,131 (mayor = mejor) |
-
-### Tres perfiles identificados
-
-**🔴 Perfil 1 — Desarrollador Sobrecargado (Alto Riesgo)**
-
-| Variable | Posición | Señal |
-|----------|----------|-------|
-| `ratio_trabajo_descanso` | 🔺 Por encima de la media | Jornadas largas con poco sueño |
-| `carga_operativa` | 🔺 Por encima de la media | Muchos bugs + reuniones frecuentes |
-| `indice_recuperacion` | 🔻 Por debajo de la media | Poco sueño y sin ejercicio |
-| `caffeine_intake` | 🔺 Por encima de la media | Compensación energética elevada |
-
-Trabaja >10–11 h/día, asiste a >5 reuniones, duerme <6 h. **Validación:** concentra casos `burnout_level = High`.
+| Variable | Razón de exclusión |
+|---|---|
+| `burnout_level` | TARGET — incluirla sería hacer trampa |
+| `stress_level` | Codificación determinista del target (precisión 99.99%, regla de 3 condiciones) |
+| `screen_time` | Redundante con `daily_work_hours` (r = 0.93) |
+| `age` | Sin poder discriminatorio (r < 0.02 con todo) |
+| `experience_years` | Sin poder discriminatorio (r < 0.02 con todo) |
+| `commits_per_day` | No discrimina burnout en ningún cuartil (r = −0.01) |
 
 ---
 
-**🟢 Perfil 2 — Desarrollador Equilibrado (Bajo Riesgo)**
+## 📊 Resultados principales
 
-| Variable | Posición | Factor protector |
-|----------|----------|-----------------|
-| `ratio_trabajo_descanso` | 🔻 Por debajo de la media | Jornadas razonables con buen descanso |
-| `carga_operativa` | 🔻 Por debajo de la media | Poca presión técnica y social |
-| `indice_recuperacion` | 🔺 Por encima de la media | Sueño adecuado + ejercicio regular |
-| `caffeine_intake` | Bajo-moderado | Sin compensación artificial |
+### K-Means (k = 2, modelo principal de segmentación)
 
-Trabaja ~6–8 h/día, <4 reuniones, duerme >7 h. **Validación:** concentra casos `Low` y `Medium burnout`.
+| Métrica | Valor (train) | Valor (val) |
+|---|---|---|
+| Silhouette Score | ~0.25 | Diferencia < 0.05 ✅ |
+| Davies-Bouldin | ~1.54 | — |
+| Calinski-Harabasz | ~2,131 | — |
 
----
+**Perfiles descubiertos:**
 
-**🚨 Perfil 3 — Desarrollador Atípico (Urgente Individual)**
+| Perfil | Etiqueta | Características principales |
+|---|---|---|
+| 🔴 Cluster A | **Alto Riesgo — Sobrecargado** | Alto `ratio_trabajo_descanso`, alta `carga_operativa`, bajo `indice_recuperacion`, alto `caffeine` |
+| 🟢 Cluster B | **Bajo Riesgo — Equilibrado** | Bajo `ratio_trabajo_descanso`, baja `carga_operativa`, alto `indice_recuperacion`, cafeína moderada |
 
-Detectado por Isolation Forest + LOF. ~5% del dataset. Combinaciones extremas de variables que no encajan en ninguno de los dos perfiles. El **consenso IF+LOF** (~1–2%) identifica los candidatos prioritarios para revisión individual de RRHH.
+La validación con `burnout_level` como referencia externa confirma diferencias estadísticamente significativas entre clusters (test Chi², p < 0.05 en train y val).
 
----
+### DBSCAN (detección de outliers)
 
-### DBSCAN — resultado diagnóstico
+En el espacio de 4 dimensiones con distribución uniforme, DBSCAN detecta un único bloque denso más ~5% de puntos de ruido. Su valor en este proyecto no es la segmentación sino la **detección de outliers**: desarrolladores con perfiles estadísticamente atípicos que no encajan en ningún patrón esperado.
 
-DBSCAN encontró **1 solo cluster + ~5% de ruido**. No es un fallo del algoritmo: en un espacio de 4 dimensiones con distribución sintética uniforme no existen zonas de baja densidad que delimiten grupos naturales. Confirma que los 2 perfiles de K-Means son **particiones métricas válidas** y valida K-Means como el modelo correcto para segmentación.
+### Detección de anomalías (IF + LOF)
 
----
+| Método | Anomalías detectadas | Perspectiva |
+|---|---|---|
+| Isolation Forest | ~5% del train | Outliers globales |
+| LOF | ~5% del train | Outliers locales (relativos al vecindario) |
+| **Consenso IF+LOF** | **~1-2% del train** | **Mayor confianza — intervención prioritaria** |
 
 ### Reducción dimensional
 
-| Técnica | Varianza 2D | Ejes | Uso recomendado |
-|---------|-------------|------|-----------------|
-| **PCA** | ~35% | ✅ PC1 = intensidad laboral · PC2 = recuperación vs presión | Analizar y comunicar |
-| **t-SNE** | N/A (no lineal) | ❌ Sin interpretación directa | Visualizar estructura local |
+| Técnica | Varianza capturada (2D) | Ejes interpretables |
+|---|---|---|
+| PCA | ~35% (PC1: intensidad laboral, PC2: recuperación) | ✅ Sí |
+| t-SNE | N/A (no lineal) | ❌ No |
 
 ---
 
-## 🚀 Cómo ejecutar
-
-### Google Colab
-
-```
-1. Sube developer_burnout_dataset.csv a Google Drive:
-   My Drive/MachineLearning/Semana3/developer_burnout_dataset.csv
-
-2. Abre el notebook en Colab
-
-3. Ejecuta las celdas en orden: Paso 1 → Paso 15
-```
-
-> ⚠️ Si el archivo está en otra ruta, modifica `FILE_PATH` en el **Paso 2** antes de ejecutar.
-
-### Entorno local
+## 🛠️ Requisitos e instalación
 
 ```bash
-pip install pandas numpy matplotlib seaborn plotly scikit-learn missingno scipy
-jupyter notebook KMeans_DBSCAN_anomalias_Grupo_4_1205_FINAL.ipynb
+pip install pandas numpy matplotlib seaborn plotly scikit-learn scipy missingno
 ```
 
----
+### Ejecución en Google Colab
 
-## 🧰 Stack tecnológico
+1. Subir `developer_burnout_dataset.csv` a Google Drive
+2. Ajustar `FILE_PATH` en el **Paso 2** del notebook:
+   ```python
+   FILE_PATH = '/content/drive/My Drive/ruta/al/developer_burnout_dataset.csv'
+   ```
+3. Ejecutar todas las celdas **en orden secuencial** (cada paso depende del anterior)
 
-| Categoría | Librerías |
-|-----------|-----------|
-| **Datos** | `pandas`, `numpy` |
-| **Visualización** | `matplotlib`, `seaborn`, `plotly` |
-| **Diagnóstico NaN** | `missingno` |
-| **Preprocesamiento** | `SimpleImputer`, `ColumnTransformer`, `StandardScaler`, `RobustScaler`, `OneHotEncoder` |
-| **Clustering** | `KMeans`, `DBSCAN` |
-| **Anomalías** | `IsolationForest`, `LocalOutlierFactor` |
-| **Reducción dimensional** | `PCA`, `TSNE` |
-| **Evaluación clustering** | `silhouette_score`, `davies_bouldin_score`, `calinski_harabasz_score` |
-| **Estadística** | `scipy.stats.shapiro` |
-
----
-
-## ⚠️ Advertencia sobre los datos
-
-El análisis detectó señales de **dataset sintético**:
-
-- Skewness máximo 0.06 en todas las variables (datos reales → |skew| > 0.5)
-- **Cero outliers IQR** en las 11 columnas numéricas
-- NaN en patrón MCAR uniforme (exactamente 2% por columna)
-- Fronteras de `stress_level` perfectamente deterministas (99.99% precisión)
-
-Los resultados son válidos como exploración metodológica. Con datos reales de campo, los clusters serán menos nítidos y los parámetros óptimos requieren recalibración.
+> El notebook incluye verificaciones de dependencias explícitas entre pasos. Si se ejecutan celdas fuera de orden, se lanzará un `RuntimeError` con el mensaje correspondiente.
 
 ---
 
 ## 📚 Wiki del proyecto
 
-La documentación detallada de cada etapa está disponible en la carpeta `wiki/`:
+La documentación detallada está organizada en la carpeta `wiki/`. Cada archivo cubre un aspecto específico del análisis:
 
-| Página | Contenido |
-|--------|-----------|
-| [Home](wiki/Home.md) | Presentación, navegación y principios metodológicos |
-| [Dataset](wiki/01_Dataset_y_Variables.md) | Variables, naturaleza sintética e implicaciones |
-| [EDA](wiki/02_EDA_Analisis_Exploratorio.md) | Distribuciones, NaN, correlaciones Pearson y Spearman |
-| [Feature Engineering](wiki/03_Seleccion_Variables_Feature_Engineering.md) | Exclusiones justificadas, features construidas, anti-leakage |
-| [Preprocesamiento](wiki/04_Preprocesamiento.md) | Split, imputación, diagnóstico de scaler, escalado |
-| [K-Means](wiki/05_KMeans_Seleccion_k_y_Entrenamiento.md) | Selección de k, entrenamiento, heatmap de centroides, validación |
-| [DBSCAN](wiki/06_DBSCAN_Clustering_por_Densidad.md) | K-Distance Graph, resultado, interpretación del 1 cluster |
-| [PCA y t-SNE](wiki/07_Reduccion_Dimensional_PCA_tSNE.md) | Varianza, loadings, fidelidad, cuándo usar cada técnica |
-| [Anomalías](wiki/08_Deteccion_Anomalias_IF_LOF.md) | IF vs LOF, perspectiva global vs local, consenso |
-| [Resultados](wiki/09_Perfiles_Identificados_y_Resultados.md) | Tres perfiles, tabla comparativa, resumen ejecutivo |
-| [Limitaciones](wiki/10_Limitaciones_y_Recomendaciones.md) | 5 limitaciones documentadas con propuestas de solución |
+- **[Home](wiki/Home.md)** — Índice completo y mapa conceptual
+- **[Dataset](wiki/01_Dataset.md)** — Descripción de variables, estadísticas, diagnóstico sintético
+- **[Selección de variables y Leakage](wiki/02_Seleccion_Variables_Leakage.md)** — Por qué se excluyen `burnout_level` y `stress_level`
+- **[Feature Engineering](wiki/03_Feature_Engineering.md)** — Construcción de las 3 features compuestas
+- **[Preprocesamiento](wiki/04_Preprocesamiento.md)** — Split, imputación honesta, escalado adaptativo
+- **[K-Means: selección de k](wiki/05_KMeans_Seleccion_k.md)** — 4 métricas, ranking combinado, k=2
+- **[K-Means: perfiles](wiki/06_KMeans_Perfiles.md)** — Centroides, etiquetado, validación Chi²
+- **[DBSCAN](wiki/07_DBSCAN.md)** — Clustering por densidad y maldición de la dimensionalidad
+- **[Reducción dimensional](wiki/08_Reduccion_Dimensional.md)** — PCA vs t-SNE
+- **[Detección de anomalías](wiki/09_Deteccion_Anomalias.md)** — IF + LOF + consenso
+- **[Conclusiones](wiki/10_Conclusiones.md)** — Perfiles, tabla comparativa, limitaciones
 
 ---
 
-## 👥 Equipo
+## 👥 Autoría
 
-**Grupo 4 — Modelos No Supervisados**
-Universidad de Especialidades Espíritu Santo (UEES)
-
----
-
-<div align="center">
-<sub>Fuente: <a href="https://www.kaggle.com/datasets/asifxzaman/developer-burnout-prediction-dataset7000-samples">Developer Burnout Prediction Dataset — Kaggle</a></sub>
-</div>
-
-
-## 👥 Autores
-
-**Grupo 4 — Machine Learning**
-Universidad de Especialidades Espíritu Santo (UEES)
+**Grupo 4** — Asignatura: Machine Learning · Aprendizaje No Supervisado
+Universidad UEES
 
 | # | Nombre |
 |---|--------|
@@ -319,9 +224,9 @@ Universidad de Especialidades Espíritu Santo (UEES)
 | 2 | Guillermo Leonidas Granizo Veintimilla |
 | 3 | José Farid Ulloa Manzur |
 | 4 | Christian Xavier Valle Maridueña |
-
 ---
 
 ## 📄 Licencia
-
 Este proyecto está bajo la licencia **MIT**. Ver el archivo [LICENSE](LICENSE) para más detalles.
+Dataset original: Kaggle (uso académico).
+Código del notebook: uso académico — Grupo 4, UEES.
