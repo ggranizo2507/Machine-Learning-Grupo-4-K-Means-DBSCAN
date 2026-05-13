@@ -200,7 +200,7 @@ pip install pandas numpy matplotlib seaborn plotly scikit-learn scipy missingno
 La documentación detallada está organizada en la carpeta `wiki/`. Cada archivo cubre un aspecto específico del análisis:
 
 - **[Home](wiki/Home)** — Índice completo y mapa conceptual
-- **[Dataset](./02_Seleccion_Variables_Leakage)** — Descripción de variables, estadísticas, diagnóstico sintético
+- **[Dataset](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/02_Seleccion_Variables_Leakage)** — Descripción de variables, estadísticas, diagnóstico sintético
 - **[Selección de variables y Leakage](wiki/02_Seleccion_Variables_Leakage)** — Por qué se excluyen `burnout_level` y `stress_level`
 - **[Feature Engineering](wiki/03_Feature_Engineering)** — Construcción de las 3 features compuestas
 - **[Preprocesamiento](wiki/04_Preprocesamiento)** — Split, imputación honesta, escalado adaptativo
