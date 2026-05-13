@@ -207,9 +207,9 @@ La documentación detallada está organizada en la carpeta `wiki/`. Cada archivo
 - **[K-Means: selección de k](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/05_KMeans_Seleccion_k)** — 4 métricas, ranking combinado, k=2
 - **[K-Means: perfiles](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/06_KMeans_Perfiles)** — Centroides, etiquetado, validación Chi²
 - **[DBSCAN](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/07_DBSCAN)** — Clustering por densidad y maldición de la dimensionalidad
-- **[Reducción dimensional]([wiki/08_Reduccion_Dimensional](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/08_Reduccion_Dimensional))** — PCA vs t-SNE
+- **[Reducción dimensional](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/08_Reduccion_Dimensional)** — PCA vs t-SNE
 - **[Detección de anomalías](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/09_Deteccion_Anomalias)** — IF + LOF + consenso
-- **[Conclusiones]([wiki/10_Conclusiones](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/10_Conclusiones))** — Perfiles, tabla comparativa, limitaciones
+- **[Conclusiones](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/10_Conclusiones)** — Perfiles, tabla comparativa, limitaciones
 
 ---
 
