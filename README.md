@@ -202,14 +202,14 @@ La documentación detallada está organizada en la carpeta `wiki/`. Cada archivo
 - **[Home](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki)** — Índice completo y mapa conceptual
 - **[Dataset](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/01_Dataset)** — Descripción de variables, estadísticas, diagnóstico sintético
 - **[Selección de variables y Leakage](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/02_Seleccion_Variables_Leakage)** — Por qué se excluyen `burnout_level` y `stress_level`
-- **[Feature Engineering](wiki/03_Feature_Engineering)** — Construcción de las 3 features compuestas
-- **[Preprocesamiento](wiki/04_Preprocesamiento)** — Split, imputación honesta, escalado adaptativo
-- **[K-Means: selección de k](wiki/05_KMeans_Seleccion_k)** — 4 métricas, ranking combinado, k=2
-- **[K-Means: perfiles](wiki/06_KMeans_Perfiles)** — Centroides, etiquetado, validación Chi²
-- **[DBSCAN](wiki/07_DBSCAN)** — Clustering por densidad y maldición de la dimensionalidad
-- **[Reducción dimensional](wiki/08_Reduccion_Dimensional)** — PCA vs t-SNE
-- **[Detección de anomalías](wiki/09_Deteccion_Anomalias)** — IF + LOF + consenso
-- **[Conclusiones](wiki/10_Conclusiones)** — Perfiles, tabla comparativa, limitaciones
+- **[Feature Engineering](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/03_Feature_Engineering)** — Construcción de las 3 features compuestas
+- **[Preprocesamiento](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/04_Preprocesamiento)** — Split, imputación honesta, escalado adaptativo
+- **[K-Means: selección de k](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/05_KMeans_Seleccion_k)** — 4 métricas, ranking combinado, k=2
+- **[K-Means: perfiles](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/06_KMeans_Perfiles)** — Centroides, etiquetado, validación Chi²
+- **[DBSCAN](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/07_DBSCAN)** — Clustering por densidad y maldición de la dimensionalidad
+- **[Reducción dimensional]([wiki/08_Reduccion_Dimensional](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/08_Reduccion_Dimensional))** — PCA vs t-SNE
+- **[Detección de anomalías](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/09_Deteccion_Anomalias)** — IF + LOF + consenso
+- **[Conclusiones]([wiki/10_Conclusiones](https://github.com/ggranizo2507/Machine-Learning-Grupo-4-K-Means-DBSCAN/wiki/10_Conclusiones))** — Perfiles, tabla comparativa, limitaciones
 
 ---
 
