@@ -335,12 +335,12 @@ En el espacio de 4 variables del modelo, DBSCAN detecta una sola región densa. 
 
 ## 👥 Integrantes del Grupo
 
-| Nombre | Universidad |
-|--------|-------------|
-| **Eduardo Alejandro Ceballos Jijón** | UEES |
-| **Guillermo Leonidas Granizo Veintimilla** | UEES |
-| **José Farid Ulloa Manzur** | UEES |
-| **Christian Xavier Valle Maridueña** | UEES |
+| Nombre |
+|--------|
+| **Eduardo Alejandro Ceballos Jijón** | 
+| **Guillermo Leonidas Granizo Veintimilla** | 
+| **José Farid Ulloa Manzur** | 
+| **Christian Xavier Valle Maridueña** | 
 
 ---
 
